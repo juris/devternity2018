@@ -1,0 +1,19 @@
+version: '3'
+services:
+  thumbor:
+    image: minimalcompact/thumbor:6.6.0
+    environment:
+      - DETECTORS=['thumbor.detectors.face_detector','thumbor.detectors.glasses_detector']
+      - RESULT_STORAGE=thumbor.result_storages.file_storage
+      - RESULT_STORAGE_STORES_UNSAFE=True
+      - STORAGE=tc_redis.storages.redis_storage
+      - REDIS_STORAGE_SERVER_HOST=redis
+      - REDIS_STORAGE_SERVER_PORT=6379
+      - REDIS_STORAGE_SERVER_DB=0
+      - REDIS_STORAGE_SERVER_PASSWORD=None
+    ports:
+      - 80:80
+  redis:
+    image: redis:5.0.1-alpine
+    ports:
+      - 6379:6379
