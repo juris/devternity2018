@@ -87,7 +87,7 @@ runcmd:
   - echo "--- Deploy Thumbor ---"
   - mkdir -p /opt/thumbor
   - curl -fsSL -o /opt/thumbor/docker-compose https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
-  - docker-compose up -d -f /opt/thumbor/docker-compose.yml
+  - REDIS_HOST="redis" docker-compose up -d -f /opt/thumbor/docker-compose.yml
 ```
 
 ## Stress test service to check AutoScaling
@@ -95,3 +95,29 @@ runcmd:
 No need to saturate network in our class. You can ssh to one of the instances and launch apache benchmark from there.
 
 `ab -c 50 -n 1000000 http://ALB_IP/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg`
+
+## Configure service with ElastiCache Redis
+
+Update cloud-init with the new REDIS_HOST env variable.
+
+```cloud-init
+#cloud-config
+
+runcmd:
+  - echo "--- Install Dependencies ---"
+  - apt-get update
+  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common git apache2-utils
+  - echo "--- Install Docker ---"
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - apt-get update
+  - apt-get install -y docker-ce
+  - usermod -aG docker ubuntu
+  - echo "--- Install Docker Compose ---"
+  - curl -fsSL -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m`
+  - chmod +x /usr/local/bin/docker-compose
+  - echo "--- Deploy Thumbor ---"
+  - mkdir -p /opt/thumbor
+  - curl -fsSL -o /opt/thumbor/docker-compose https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
+  - REDIS_HOST="AWS_ELASTICACHE_ENDPOINT" docker-compose up -d -f /opt/thumbor/docker-compose.yml
+```

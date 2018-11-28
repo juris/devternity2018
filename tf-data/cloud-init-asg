@@ -16,4 +16,4 @@ runcmd:
   - echo "--- Deploy Thumbor ---"
   - mkdir -p /opt/thumbor
   - curl -fsSL -o /opt/thumbor/docker-compose.yml https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
-  - docker-compose -f /opt/thumbor/docker-compose.yml up -d
+  - REDIS_HOST="redis" docker-compose -f /opt/thumbor/docker-compose.yml up -d
