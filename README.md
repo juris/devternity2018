@@ -2,7 +2,7 @@
 
 Welcome to AWS workshop. This should be fun. Below you'll find some useful links and configuration snippets we are going to use during the workshop.
 
-## AWS Access
+## AWS access
 
 [Default AWS URL](https://aws.amazon.com)
 
@@ -34,7 +34,7 @@ Works on first boot or execute this before stopping an instance:
 runcmd:
   - echo "--- Install Dependencies ---"
   - apt-get update
-  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common git
+  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common git wget apache2-utils
   - echo "--- Install Docker ---"
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
@@ -59,9 +59,39 @@ docker-compose up -d
 [Image with Scarlett Johannson](https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg)
 
 ```bash
-Crop image to 500x500 with face detection
-http://YOUR_IP/unsafe/500x500/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
+Crop image to 800x800 with face detection
+http://INSTANCE_IP/unsafe/800x800/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 
-Crop image to 600x600 and put DevTernity watermark http://devternity.com/images/logo_2017.png
-http://YOUR_IP/unsafe/600x600/filters:watermark(https://devternity.com/images/logo_2017.png,300,-30,50)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
+Crop image to 1000x1000 and put DevTernity watermark http://devternity.com/images/logo_2017.png
+http://INSTANCE_IP/unsafe/1000x1000/filters:watermark(https://devternity.com/images/logo_2017.png,520,-120,0)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 ```
+
+## Launch template EC2 metadata for Ubuntu
+
+```cloud-init
+#cloud-config
+
+runcmd:
+  - echo "--- Install Dependencies ---"
+  - apt-get update
+  - apt-get install -y apt-transport-https ca-certificates curl software-properties-common git apache2-utils
+  - echo "--- Install Docker ---"
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - apt-get update
+  - apt-get install -y docker-ce
+  - usermod -aG docker ubuntu
+  - echo "--- Install Docker Compose ---"
+  - curl -fsSL -o /usr/local/bin/docker-compose https://github.com/docker/compose/releases/download/1.23.1/docker-compose-`uname -s`-`uname -m`
+  - chmod +x /usr/local/bin/docker-compose
+  - echo "--- Deploy Thumbor ---"
+  - mkdir -p /opt/thumbor
+  - curl -fsSL -o /opt/thumbor/docker-compose https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
+  - docker-compose up -d -f /opt/thumbor/docker-compose.yml
+```
+
+## Stress test service to check AutoScaling
+
+No need to saturate network in our class. You can ssh to one of the instances and launch apache benchmark from there.
+
+`ab -c 50 -n 1000000 http://ALB_IP/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg`
