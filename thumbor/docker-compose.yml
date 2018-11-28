@@ -13,6 +13,8 @@ services:
       - REDIS_STORAGE_SERVER_PASSWORD=None
     ports:
       - 80:80
+    depends_on:
+      - "redis"
   redis:
     image: redis:5.0.1-alpine
     ports:
