@@ -2,13 +2,15 @@
 
 Welcome to AWS workshop. This should be fun. Below you'll find some useful links and configuration snippets we are going to use during the workshop.
 
-## AWS access
+## AWS Access
 
-[Default AWS URL](https://aws.amazon.com)
+[AWS](https://aws.amazon.com)
 
-[DevTernity Account AWS Sign-in URL](https://devternity2018.signin.aws.amazon.com/console)
+[AWS Free Tier](https://aws.amazon.com/free/)
 
-## Helpful resources
+[Workshop AWS Account](https://devternity2018.signin.aws.amazon.com/console)
+
+## Helpful Resources
 
 [EC2 Pricing Comparison](http://ec2pricing.net/)
 
@@ -16,13 +18,13 @@ Welcome to AWS workshop. This should be fun. Below you'll find some useful links
 
 [AWS Calculator](https://calculator.s3.amazonaws.com/index.html)
 
-## How to create and use SSH key for AWS
+## How To Create And Use SSH Keys For AWS
 
 [Converting Your Private Key Using PuTTYgen (Windows)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html#putty-private-key)
 
 [Retrieving the Public Key for Your Key Pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#retrieving-the-public-key)
 
-## EC2 metadata for Ubuntu
+## EC2 Metadata For Ubuntu
 
 Works on first boot or execute this before stopping an instance:
 
@@ -46,7 +48,7 @@ runcmd:
   - chmod +x /usr/local/bin/docker-compose
 ```
 
-## Thumbor setup
+## Thumbor Setup
 
 ```bash
 mkdir thumbor
@@ -54,7 +56,7 @@ wget https://
 docker-compose up -d
 ```
 
-### Have fun with Thumbor
+### Have Fun With Thumbor
 
 [Image with Scarlett Johannson](https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg)
 
@@ -66,7 +68,7 @@ http://INSTANCE_IP/unsafe/800x800/https://papers.co/wallpaper/papers.co-ho52-sca
 http://INSTANCE_IP/unsafe/1000x1000/filters:watermark(https://devternity.com/images/logo_2017.png,520,-120,0)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 ```
 
-## Launch template EC2 metadata for Ubuntu
+## Launch Template EC2 Metadata For Ubuntu
 
 ```cloud-init
 #cloud-config
@@ -90,7 +92,7 @@ runcmd:
   - REDIS_HOST="redis" docker-compose up -d -f /opt/thumbor/docker-compose.yml
 ```
 
-## Stress test service to check AutoScaling
+## Stress Test Service To Check AutoScaling
 
 No need to saturate network in our class. You can ssh to one of the instances and launch apache benchmark from there.
 
@@ -98,7 +100,7 @@ No need to saturate network in our class. You can ssh to one of the instances an
 ab -c 50 -n 1000000 http://ALB_IP/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 ```
 
-## Configure service with ElastiCache Redis
+## Configure Service With ElastiCache Redis
 
 Update cloud-init with the new REDIS_HOST env variable.
 
