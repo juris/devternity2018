@@ -51,9 +51,9 @@ runcmd:
 ## Thumbor Setup
 
 ```bash
-mkdir thumbor
-wget https://
-docker-compose up -d
+sudo mkdir -p /opt/thumbor
+sudo curl -fsSL -o /opt/thumbor/docker-compose.yml https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
+REDIS_HOST="redis" docker-compose -f /opt/thumbor/docker-compose.yml up -d
 ```
 
 ### Have Fun With Thumbor
@@ -88,8 +88,8 @@ runcmd:
   - chmod +x /usr/local/bin/docker-compose
   - echo "--- Deploy Thumbor ---"
   - mkdir -p /opt/thumbor
-  - curl -fsSL -o /opt/thumbor/docker-compose https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
-  - REDIS_HOST="redis" docker-compose up -d -f /opt/thumbor/docker-compose.yml
+  - curl -fsSL -o /opt/thumbor/docker-compose.yml https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
+  - REDIS_HOST="redis" docker-compose -f /opt/thumbor/docker-compose.yml up -d
 ```
 
 ## Stress Test Service To Check AutoScaling
@@ -122,6 +122,6 @@ runcmd:
   - chmod +x /usr/local/bin/docker-compose
   - echo "--- Deploy Thumbor ---"
   - mkdir -p /opt/thumbor
-  - curl -fsSL -o /opt/thumbor/docker-compose https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
-  - REDIS_HOST="AWS_ELASTICACHE_ENDPOINT" docker-compose up -d -f /opt/thumbor/docker-compose.yml
+  - curl -fsSL -o /opt/thumbor/docker-compose.yml https://raw.githubusercontent.com/juris/devternity2018/master/thumbor/docker-compose.yml
+  - REDIS_HOST="AWS_ELASTICACHE_ENDPOINT" docker-compose -f /opt/thumbor/docker-compose.yml up -d
 ```
