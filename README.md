@@ -59,10 +59,10 @@ docker-compose up -d
 [Image with Scarlett Johannson](https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg)
 
 ```bash
-Crop image to 800x800 with face detection
+# Crop image to 800x800 with face detection
 http://INSTANCE_IP/unsafe/800x800/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 
-Crop image to 1000x1000 and put DevTernity watermark http://devternity.com/images/logo_2017.png
+# Crop image to 1000x1000 and put DevTernity watermark http://devternity.com/images/logo_2017.png
 http://INSTANCE_IP/unsafe/1000x1000/filters:watermark(https://devternity.com/images/logo_2017.png,520,-120,0)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 ```
 
@@ -94,7 +94,9 @@ runcmd:
 
 No need to saturate network in our class. You can ssh to one of the instances and launch apache benchmark from there.
 
-`ab -c 50 -n 1000000 http://ALB_IP/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg`
+```bash
+ab -c 50 -n 1000000 http://ALB_IP/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
+```
 
 ## Configure service with ElastiCache Redis
 
