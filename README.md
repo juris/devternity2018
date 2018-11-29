@@ -97,7 +97,7 @@ runcmd:
 No need to saturate network in our class. You can ssh to one of the instances and launch apache benchmark from there.
 
 ```bash
-ab -c 50 -n 1000000 http://ALB_IP/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
+ab -c 50 -n 1000000 http://dt2018-prod-alb01-333094156.eu-central-1.elb.amazonaws.com/unsafe/1000x1000/filters:watermark\(https://devternity.com/images/logo_2017.png,520,-120,0\)/https://papers.co/wallpaper/papers.co-ho52-scarlett-johansson-girl-film-sexy-hero-33-iphone6-wallpaper.jpg
 ```
 
 ## Configure Service With ElastiCache Redis

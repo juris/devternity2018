@@ -5,9 +5,7 @@
 #   vpc_security_group_ids = ["${aws_security_group.thumbor_sg.id}"]
 #   key_name               = "${aws_key_pair.default_ssh_key.id}"
 #   subnet_id              = "${aws_default_subnet.default_az1a.id}"
-
-#   # Comment out user_data before commit
-#   user_data = "${file("tf-data/cloud-init")}"
+#   user_data              = "${file("tf-data/cloud-init")}"
 
 #   tags = "${merge(
 #     local.common_tags,
@@ -17,7 +15,6 @@
 #   )}"
 # }
 
-# # Comment out user_data before commit
 # resource "aws_eip" "thumbor_eip" {
 #   instance = "${aws_instance.thumbor.id}"
 #   vpc      = true
