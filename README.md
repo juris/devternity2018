@@ -4,9 +4,11 @@ Welcome to AWS workshop. This should be fun. Below you'll find some useful links
 
 ## AWS access
 
-[Default AWS URL](https://aws.amazon.com)
+[AWS](https://aws.amazon.com)
 
-[DevTernity Account AWS Sign-in URL](https://devternity2018.signin.aws.amazon.com/console)
+[AWS Free Tier](https://aws.amazon.com/free/)
+
+[Workshop AWS Account](https://devternity2018.signin.aws.amazon.com/console)
 
 ## Helpful resources
 
